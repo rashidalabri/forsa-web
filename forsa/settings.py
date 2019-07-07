@@ -33,11 +33,16 @@ class Common(Configuration):
         'django.contrib.messages',
         'whitenoise.runserver_nostatic',
         'django.contrib.staticfiles',
+        'django.contrib.humanize',
 
         'django_extensions',
         'debug_toolbar',
 
+        'crispy_forms',
+
         'forsa.users',
+
+        'wajiha'
     ]
 
     MIDDLEWARE = [
@@ -114,6 +119,8 @@ class Common(Configuration):
 
     AUTH_USER_MODEL = 'users.User'
 
+    CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
 
 class Development(Common):
     """
@@ -155,3 +162,4 @@ class Production(Staging):
     The in-production settings.
     """
     pass
+

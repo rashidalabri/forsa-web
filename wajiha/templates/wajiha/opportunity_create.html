@@ -1,0 +1,21 @@
+{% extends "wajiha/base.html" %}
+{% load crispy_forms_tags %}
+
+{% block title %}Post A New Opportunity{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="card border-primary">
+        <div class="card-header">Post an Opportunity</div>
+        <div class="card-body">
+            <form action="" method="post">
+                {% csrf_token %}
+                {{ form|crispy }}
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </div>
+
+
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,33 @@
+{% extends "wajiha/base.html" %}
+{% load humanize %}
+
+{% block title %}Discover Opportunities in Oman{% endblock title %}
+
+{% block content %}
+
+<div class="container">
+{% for opportunity in object_list %}
+    {% if forloop.counter|divisibleby:2 %}{% else %}<div class="row no-gutters">{% endif %}
+        <div class="card col-md mb-3 {% if forloop.counter|divisibleby:2 %}{% else %}{% if forloop.last %}{% else %}mr-3{% endif%}{% endif %}">
+            <div class="row no-gutters">
+                <div class="col-md-4">
+                    <img src="https://via.placeholder.com/150" class="card-img" height="100%" width="100%">
+                </div>
+                <div class="col-md-8">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ opportunity.title }}</h5>
+                        <p class="card-text">{{ opportunity.description|slice:":80" }}...</p>
+                        <p class="card-text"><small class="text-muted">Posted {{ opportunity.created_at|naturaltime }}</small></p>
+                        <a href="{% url 'wajiha:opportunity_detail' pk=opportunity.pk %}"><button type="button" class="btn btn-primary">Learn More</button></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% if forloop.counter|divisibleby:2 %}</div>{% else %}{% endif %}
+{% endfor %}
+</div>
+
+<ul>
+    
+</ul>
+{% endblock %}

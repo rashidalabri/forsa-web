@@ -1,3 +1,5 @@
 from django.contrib import admin
 
-# Register your models here.
+from wajiha.models import Opportunity
+
+admin.site.register(Opportunity)
