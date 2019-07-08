@@ -18,7 +18,7 @@
                         <p class="card-text">{{ opportunity.description }}</p>
                         <p class="card-text"><small class="text-muted">Posted
                                 {{ opportunity.created_at|naturaltime }}</small></p>
-                        <a href="{% url 'wajiha:opportunity_detail' pk=opportunity.pk %}"><button type="button"
+                        <a href="{% url 'wajiha:opportunity_detail' pk=opportunity.pk slug=opportunity.slug %}"><button type="button"
                                 class="btn btn-primary">Website</button></a>
                     </div>
                 </div>
@@ -42,7 +42,7 @@
                         <p class="card-text">{{ p.description|slice:":80" }}...</p>
                         <p class="card-text"><small class="text-muted">Posted
                                 {{ p.created_at|naturaltime }}</small></p>
-                        <a href="{% url 'wajiha:opportunity_detail' pk=p.pk %}"><button type="button"
+                        <a href="{% url 'wajiha:opportunity_detail' pk=opportunity.pk slug=opportunity.slug %}"><button type="button"
                                 class="btn btn-primary">Learn More</button></a>
                     </div>
                 </div>
