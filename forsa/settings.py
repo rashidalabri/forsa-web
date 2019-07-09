@@ -18,7 +18,7 @@ class Common(Configuration):
     BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
     # SECURITY WARNING: keep the secret key used in production secret!
-    SECRET_KEY = values.SecretValue(environ_name='DJANGO_SECRET_KEY')
+    SECRET_KEY = values.SecretValue()
 
     # SECURITY WARNING: don't run with debug turned on in production!
     DEBUG = values.BooleanValue(False)
