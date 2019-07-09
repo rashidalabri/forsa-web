@@ -5,14 +5,23 @@ from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import FormView
 
+from django.contrib.postgres.search import SearchVector
+
 
 from wajiha.models import Opportunity
 from wajiha.forms import OpportunityCreationForm
 
 class OpportunityListView(ListView):
-    queryset = Opportunity.objects.filter(hidden=False)
+    model = Opportunity
     template_name = "wajiha/opportunity_list.html"
     paginate_by = 25
+
+    def get_queryset(self):
+        if self.request.GET['q']:
+            search_string = self.request.GET['q']
+            return self.model.objects.filter(title__search=search_string, description__search=search_string, hidden=False)
+        return self.model.objects.filter(hidden=False)
+            
 
 
 class OpportunityDetailView(DetailView):

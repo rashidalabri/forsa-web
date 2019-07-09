@@ -10,7 +10,7 @@ class OpportunityCategory(models.Model):
         return self.name
 
 class Opportunity(models.Model):
-    slug = models.SlugField(unique=True)
+    slug = models.SlugField(unique=True, allow_unicode=True)
 
     title = models.CharField(max_length=250)
     description = models.TextField()
@@ -32,7 +32,8 @@ class Opportunity(models.Model):
     hidden = models.BooleanField(default=True)
 
     def save(self, *args, **kwargs):
-        self.slug = slugify(self.title)
+        if self.slug in [None, '', u'']:
+            self.slug = slugify(self.title)
         super(Opportunity, self).save(*args, **kwargs)
 
     def __str__(self):

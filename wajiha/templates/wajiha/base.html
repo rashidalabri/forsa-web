@@ -6,27 +6,10 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <link href="https://fonts.googleapis.com/css?family=Tajawal&display=swap" rel="stylesheet"> 
+    <link href="https://fonts.googleapis.com/css?family=Tajawal&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="{% static 'css/rtl/bootstrap.min.css' %}">
     <link rel="stylesheet" href="{% static 'css/custom.css' %}">
-
-    <style>
-        .bd-placeholder-img {
-            font-size: 1.125rem;
-            text-anchor: middle;
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
-            user-select: none;
-        }
-
-        @media (min-width: 768px) {
-            .bd-placeholder-img-lg {
-                font-size: 3.5rem;
-            }
-        }
-    </style>
 
     <title>{% block title %}{% endblock title %} | فرصة</title>
 </head>
@@ -58,7 +41,7 @@
                     </ul>
                     <form class="form-inline my-2 my-lg-0">
                         <input class="form-control mr-sm-2" type="text" placeholder="">
-                        <button class="btn btn-secondary my-2 my-sm-0" type="submit">بحث</button>
+                        <button class="btn btn-outline-light my-2 my-sm-0" type="submit">بحث</button>
                     </form>
                 </div>
             </div>
@@ -83,8 +66,11 @@
         {% block content %}
         {% endblock %}
         <footer class="page-footer font-small blue">
-            <div class="footer-copyright text-center py-3">© 2019 Copyright:
-                <a href="https://rashidalabri.com/"> Rashid Al-Abri</a>
+            <div class="container">
+                <hr>
+                <div class="footer-copyright text-center py-3">مرخص تحت رخصة MIT | <a
+                        href="https://github.com/forsa-om/forsa-web">مفتوح المصدر</a>
+                </div>
             </div>
         </footer>
     </main>

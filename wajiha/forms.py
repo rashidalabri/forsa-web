@@ -12,6 +12,19 @@ class OpportunityCreationForm(forms.ModelForm):
     age_min = forms.IntegerField(required=False)
     age_max = forms.IntegerField(required=False)
 
+    def __init__(self, *args, **kwargs):
+        super(OpportunityCreationForm, self).__init__(*args, **kwargs)
+        self.fields['title'].label = 'العنوان'
+        self.fields['description'].label = 'التفاصيل'
+        self.fields['category'].label = 'نوع الفرصة'
+        self.fields['start_at'].label = 'تاريخ الابتداء'
+        self.fields['end_at'].label = 'تاريخ الانتهاء'
+        self.fields['website'].label = 'الموقع الإلكتروني'
+        self.fields['phone_number'].label = 'رقم الهاتف'
+        self.fields['email'].label = 'البريد الإلكتروني'
+        self.fields['age_min'].label = 'الحد الإدنى للسن'
+        self.fields['age_max'].label = 'الحد الأقصى للسن'
+
     class Meta:
         model = Opportunity
         fields = ('title', 'description', 'category', 'start_at', 'end_at', 'website', 'phone_number', 'email', 'age_min', 'age_max')

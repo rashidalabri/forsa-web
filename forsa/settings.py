@@ -34,6 +34,7 @@ class Common(Configuration):
         'whitenoise.runserver_nostatic',
         'django.contrib.staticfiles',
         'django.contrib.humanize',
+        'django.contrib.postgres',
 
         'django_extensions',
         'debug_toolbar',
@@ -76,12 +77,6 @@ class Common(Configuration):
 
     WSGI_APPLICATION = 'forsa.wsgi.application'
 
-    # Database
-    # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
-    DATABASES = values.DatabaseURLValue(
-        'sqlite:///{}'.format(os.path.join(BASE_DIR, 'db.sqlite3'))
-    )
-
     # Password validation
     # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
     AUTH_PASSWORD_VALIDATORS = [
@@ -101,7 +96,7 @@ class Common(Configuration):
 
     # Internationalization
     # https://docs.djangoproject.com/en/2.2/topics/i18n/
-    LANGUAGE_CODE = 'en-us'
+    LANGUAGE_CODE = 'ar-om'
 
     TIME_ZONE = 'Asia/Muscat'
 
@@ -121,6 +116,8 @@ class Common(Configuration):
 
     CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
+    ALLOW_UNICODE_SLUGS = True
+
 
 class Development(Common):
     """
@@ -137,6 +134,11 @@ class Development(Common):
     MIDDLEWARE = Common.MIDDLEWARE + [
         'debug_toolbar.middleware.DebugToolbarMiddleware'
     ]
+
+
+    DATABASES = values.DatabaseURLValue(
+        'sqlite:///{}'.format(os.path.join(BASE_DIR, 'db.sqlite3'))
+    )
 
 
 class Staging(Common):
@@ -156,10 +158,24 @@ class Staging(Common):
         ('HTTP_X_FORWARDED_PROTO', 'https')
     )
 
+    DATABASES = values.DatabaseURLValue(environ_name='DATABASE_URL')
 
 class Production(Staging):
     """
     The in-production settings.
     """
-    pass
+    # Security
+    SESSION_COOKIE_SECURE = values.BooleanValue(True)
+    SECURE_BROWSER_XSS_FILTER = values.BooleanValue(True)
+    SECURE_CONTENT_TYPE_NOSNIFF = values.BooleanValue(True)
+    SECURE_HSTS_INCLUDE_SUBDOMAINS = values.BooleanValue(True)
+    SECURE_HSTS_SECONDS = values.IntegerValue(31536000)
+    SECURE_REDIRECT_EXEMPT = values.ListValue([])
+    SECURE_SSL_HOST = values.Value(None)
+    SECURE_SSL_REDIRECT = values.BooleanValue(True)
+    SECURE_PROXY_SSL_HEADER = values.TupleValue(
+        ('HTTP_X_FORWARDED_PROTO', 'https')
+    )
+
+    DATABASES = values.DatabaseURLValue(environ_name='DATABASE_URL')
 
