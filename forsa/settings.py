@@ -161,9 +161,11 @@ class Staging(Common):
 
     DATABASES = values.DatabaseURLValue(environ_name='DATABASE_URL')
 
+    ALLOWED_HOSTS = ['forsa-staging.herokuapp.com', 'staging.forsa.om']
+
 class Production(Staging):
     """
     The in-production settings.
     """
-    pass
+    ALLOWED_HOSTS = ['forsa-production.herokuapp.com', 'forsa.om', 'www.forsa.om']
 
