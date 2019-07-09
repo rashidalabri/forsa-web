@@ -119,6 +119,8 @@ class Common(Configuration):
 
     ALLOW_UNICODE_SLUGS = True
 
+    DATABASES = values.DatabaseURLValue(environ_name='DATABASE_URL')
+
 
 class Development(Common):
     """
@@ -137,11 +139,6 @@ class Development(Common):
     ]
 
 
-    DATABASES = values.DatabaseURLValue(
-        'sqlite:///{}'.format(os.path.join(BASE_DIR, 'db.sqlite3'))
-    )
-
-
 class Staging(Common):
     """
     The in-staging settings.
@@ -158,8 +155,6 @@ class Staging(Common):
     SECURE_PROXY_SSL_HEADER = values.TupleValue(
         ('HTTP_X_FORWARDED_PROTO', 'https')
     )
-
-    DATABASES = values.DatabaseURLValue(environ_name='DATABASE_URL')
 
     ALLOWED_HOSTS = ['forsa-staging.herokuapp.com', 'staging.forsa.om']
 

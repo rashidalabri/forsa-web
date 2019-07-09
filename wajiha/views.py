@@ -17,11 +17,8 @@ class OpportunityListView(ListView):
     paginate_by = 25
 
     def get_queryset(self):
-        try:
-            search_string = self.request.GET['q']
-        except:
-            return self.model.objects.filter(hidden=False)
-        return self.model.objects.filter(title__search=search_string, description__search=search_string, hidden=False)
+        search_string = self.request.GET.get('q', '')
+        return self.model.objects.filter(hidden=False)
 
 
 class OpportunityDetailView(DetailView):
