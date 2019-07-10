@@ -10,7 +10,7 @@
         <div class="card col-md mb-3">
             <div class="row no-gutters">
                 <div class="col-md-4">
-                    <img src="https://via.placeholder.com/500" class="card-img" height="100%" width="100%">
+                    <img src="{{ opportunity.image.url }}" class="card-img" height="100%" width="100%">
                 </div>
                 <div class="col-md-8">
                     <div class="card-body">
@@ -45,21 +45,7 @@
 
     <div class="row">
         {% for opportunity in similar_opportunities %}
-        <div class="col-md-4">
-            <div class="card mb-4 shadow-sm">
-                <img src="https://via.placeholder.com/150" class="bd-placeholder-img card-img-top" width="100%"
-                    height="225">
-                <div class="card-body">
-                    <h5 class="card-title">{{ opportunity.title }}</h5>
-                    <p class="card-text">{{ opportunity.description|slice:":100" }}...</p>
-                    <div class="d-flex justify-content-between align-items-center">
-                        <a href="{% url 'wajiha:opportunity_detail' pk=opportunity.pk slug=opportunity.slug %}"><button
-                                type="button" class="btn btn-primary">المزيد</button></a>
-                        <small class="text-muted">{{ opportunity.created_at|naturaltime }}</small>
-                    </div>
-                </div>
-            </div>
-        </div>
+            {% include 'wajiha/components/opportunity_card.html' %}
         {% endfor %}
     </div>
 
