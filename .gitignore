@@ -90,5 +90,6 @@ db.sqlite3
 
 ### VSCode ###
 .vscode/*
+.vscode/settings.json
 
 forsa-debug.env
