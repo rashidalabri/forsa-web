@@ -10,12 +10,14 @@ class OpportunityCategory(models.Model):
         return self.name
 
 class Opportunity(models.Model):
-    slug = models.SlugField(unique=True, allow_unicode=True)
+    slug = models.SlugField(allow_unicode=True)
 
     title = models.CharField(max_length=250)
     description = models.TextField()
 
     category = models.ForeignKey(OpportunityCategory, models.SET_DEFAULT, default=1)
+
+    image = models.ImageField(default='default.jpg')
 
     start_at = models.DateField(null=True, blank=True)
     end_at = models.DateField(null=True, blank=True)

@@ -18,7 +18,7 @@
     <header>
         <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
             <div class="container">
-                <a class="navbar-brand" href="#">فرصة</a>
+                <a class="navbar-brand" href="#">فُرصة</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01"
                     aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -33,14 +33,11 @@
                             <a class="nav-link" href="{% url 'wajiha:opportunity_create' %}">نشر فرصة جديدة</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{% url 'wajiha:index' %}">من نحن</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'wajiha:index' %}">التبرع</a>
+                            <a class="nav-link" href="{% url 'wajiha:contact' %}">التواصل</a>
                         </li>
                     </ul>
-                    <form class="form-inline my-2 my-lg-0">
-                        <input class="form-control mr-sm-2" type="text" placeholder="">
+                    <form method="GET" action="{% url 'wajiha:index' %}" class="form-inline my-2 my-lg-0">
+                        <input required="false" name="q" class="form-control mr-sm-2" type="text" placeholder="عن ما تبحث؟" value="{{ request.GET.q }}">
                         <button class="btn btn-outline-light my-2 my-sm-0" type="submit">بحث</button>
                     </form>
                 </div>
@@ -55,9 +52,8 @@
                     style="background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)),url('{% static 'img/1.jpg' %}') no-repeat center top; background-size: cover;">
                     <div class="container">
                         <div class="carousel-caption text-left">
-                            <h1>نبني مستقبل وطننا، فرصة بفرصة</h1>
-                            <p></p>
-                            <p><a class="btn btn-lg btn-primary" href="#" role="button">استكشف</a></p>
+                            <h1>نبني مستقبلَ وطنِنا، فرصةً بفرصة.</h1>
+                            <p>"فرصة" هي عبارة عن منصة تمكن العمانيين من اكتشاف ومتابعة الفرص جديدة المتواجدة في السلطنة، من البرامج الصيفية إلى فرصِ العمل، "فرصة" هو المكان المناسب لك.</p>
                         </div>
                     </div>
                 </div>

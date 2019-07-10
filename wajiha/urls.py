@@ -8,5 +8,7 @@ urlpatterns = [
     path('opportunity', views.OpportunityListView.as_view(), name='opportunity_list'),
     path('opportunity/<int:pk>/<slug:slug>', views.OpportunityDetailView.as_view(), name='opportunity_detail'),
     path('opportunity/create', views.OpportunityCreationView.as_view(), name='opportunity_create'),
-    path('opportunity/create/success', views.OpportunityCreationView.as_view(), name='opportunity_create_success'),
+    path('opportunity/create/success', views.OpportunityCreationSuccessView.as_view(), name='opportunity_create_success'),
+
+    path('contact', views.ContactView.as_view(), name='contact'),
 ]

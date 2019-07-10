@@ -16,39 +16,52 @@
                     <div class="card-body">
                         <h4 class="card-title">{{ opportunity.title }}</h4>
                         <p class="card-text">{{ opportunity.description }}</p>
-                        <p class="card-text"><small class="text-muted">Posted
-                                {{ opportunity.created_at|naturaltime }}</small></p>
-                        <a href="{% url 'wajiha:opportunity_detail' pk=opportunity.pk slug=opportunity.slug %}"><button type="button"
-                                class="btn btn-primary">Website</button></a>
+                        <p class="card-text"><small class="text-muted">{{ opportunity.created_at|naturaltime }}</small>
+                        </p>
+                        <hr>
+                        {% if opportunity.website %}
+                        <a href="{{ opportunity.website }}"><button
+                                type="button" class="btn btn-primary">الموقع الإلكتروني</button></a>
+                        {% endif %}
+
+                        {% if opportunity.phone_number %}
+                        <a href="tel:{{ opportunity.phone_number }}"><button
+                            type="button" class="btn btn-success">الهاتف: {{ opportunity.phone_number }}</button></a>
+                        {% endif %}
+
+                        {% if opportunity.email %}
+                        <a href="mailto:{{ opportunity.email }}"><button
+                            type="button" class="btn btn-danger">البريد الإلكتروني: {{ opportunity.email }}</button></a>
+                        {% endif %}
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
     <br><br>
-    <h5 class="text-muted">Similar opportunities</h5>
+    <h5 class="text-muted">فرص مشابهة</h5>
     <hr>
-    {% for p in similar_opportunities %}
-    {% if forloop.counter|divisibleby:2 %}{% else %}<div class="row no-gutters">{% endif %}
-        <div
-            class="card col-md mb-3 {% if forloop.counter|divisibleby:2 %}{% else %}{% if forloop.last %}{% else %}mr-3{% endif%}{% endif %}">
-            <div class="row no-gutters">
-                <div class="col-md-4">
-                    <img src="https://via.placeholder.com/150" class="card-img" height="100%" width="100%">
-                </div>
-                <div class="col-md-8">
-                    <div class="card-body">
-                        <h5 class="card-title">{{ p.title }}</h5>
-                        <p class="card-text">{{ p.description|slice:":80" }}...</p>
-                        <p class="card-text"><small class="text-muted">Posted
-                                {{ p.created_at|naturaltime }}</small></p>
-                        <a href="{% url 'wajiha:opportunity_detail' pk=opportunity.pk slug=opportunity.slug %}"><button type="button"
-                                class="btn btn-primary">Learn More</button></a>
+
+    <div class="row">
+        {% for opportunity in similar_opportunities %}
+        <div class="col-md-4">
+            <div class="card mb-4 shadow-sm">
+                <img src="https://via.placeholder.com/150" class="bd-placeholder-img card-img-top" width="100%"
+                    height="225">
+                <div class="card-body">
+                    <h5 class="card-title">{{ opportunity.title }}</h5>
+                    <p class="card-text">{{ opportunity.description|slice:":100" }}...</p>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <a href="{% url 'wajiha:opportunity_detail' pk=opportunity.pk slug=opportunity.slug %}"><button
+                                type="button" class="btn btn-primary">المزيد</button></a>
+                        <small class="text-muted">{{ opportunity.created_at|naturaltime }}</small>
                     </div>
                 </div>
             </div>
         </div>
-        {% if forloop.counter|divisibleby:2 %}</div>{% else %}{% endif %}
-    {% endfor %}
+        {% endfor %}
+    </div>
+
 </div>
 {% endblock %}

@@ -90,3 +90,5 @@ db.sqlite3
 
 ### VSCode ###
 .vscode/*
+
+forsa-debug.env

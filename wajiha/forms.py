@@ -24,7 +24,8 @@ class OpportunityCreationForm(forms.ModelForm):
         self.fields['email'].label = 'البريد الإلكتروني'
         self.fields['age_min'].label = 'الحد الإدنى للسن'
         self.fields['age_max'].label = 'الحد الأقصى للسن'
+        self.fields['image'].label = 'صورة'
 
     class Meta:
         model = Opportunity
-        fields = ('title', 'description', 'category', 'start_at', 'end_at', 'website', 'phone_number', 'email', 'age_min', 'age_max')
+        fields = ('title', 'description', 'category', 'start_at', 'end_at', 'website', 'phone_number', 'email', 'age_min', 'age_max', 'image')
