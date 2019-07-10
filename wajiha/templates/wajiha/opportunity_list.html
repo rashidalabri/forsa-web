@@ -1,5 +1,4 @@
 {% extends "wajiha/base.html" %}
-{% load humanize %}
 {% load bootstrap_pagination %}
 
 {% block title %}Discover Opportunities in Oman{% endblock title %}
@@ -8,21 +7,7 @@
 <div class="container">
     <div class="row">
         {% for opportunity in object_list %}
-        <div class="col-md-4">
-            <div class="card mb-4 shadow-sm">
-                <img src="{{ opportunity.image.url }}" class="bd-placeholder-img card-img-top" width="100%"
-                    height="225">
-                <div class="card-body">
-                    <h5 class="card-title">{{ opportunity.title }}</h5>
-                    <p class="card-text">{{ opportunity.description|slice:":100" }}...</p>
-                    <div class="d-flex justify-content-between align-items-center">
-                        <a href="{% url 'wajiha:opportunity_detail' pk=opportunity.pk slug=opportunity.slug %}"><button
-                                type="button" class="btn btn-primary">المزيد</button></a>
-                        <small class="text-muted">{{ opportunity.created_at|naturaltime }}</small>
-                    </div>
-                </div>
-            </div>
-        </div>
+            {% include 'wajiha/components/opportunity_card.html' %}
         {% endfor %}
     </div>
     {% bootstrap_paginate page_obj range=10 centered="true" %}
