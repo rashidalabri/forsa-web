@@ -15,7 +15,7 @@
                 <div class="col-md-8">
                     <div class="card-body">
                         <h4 class="card-title">{{ opportunity.title }}</h4>
-                        <p class="card-text">{{ opportunity.description }}</p>
+                        <p class="card-text">{{ opportunity.description|linebreaks }}</p>
                         <p class="card-text"><small class="text-muted">{{ opportunity.created_at|naturaltime }}</small>
                         </p>
                         <hr>
