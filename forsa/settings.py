@@ -144,7 +144,7 @@ class Development(Common):
     DEBUG = True
 
     ALLOWED_HOSTS = values.ListValue(
-        ['forsa-development.herokuapp.com', '127.0.0.1'])
+        ['dev.forsa.om', 'forsa-development.herokuapp.com', '127.0.0.1'])
 
     INTERNAL_IPS = [
         '127.0.0.1'
