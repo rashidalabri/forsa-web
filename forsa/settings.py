@@ -13,6 +13,8 @@ from configurations import Configuration, values
 
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
+print(BASE_DIR)
+
 
 class Common(Configuration):
     # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -102,7 +104,7 @@ class Common(Configuration):
 
     # Internationalization
     # https://docs.djangoproject.com/en/2.2/topics/i18n/
-    LANGUAGE_CODE = 'ar-om'
+    LANGUAGE_CODE = 'ar'
 
     TIME_ZONE = 'Asia/Muscat'
 
@@ -120,21 +122,6 @@ class Common(Configuration):
 
     DATABASES = values.DatabaseURLValue(environ_name='DATABASE_URL')
 
-    AWS_ACCESS_KEY_ID = values.Value(environ_name='AWS_ACCESS_KEY_ID')
-    AWS_SECRET_ACCESS_KEY = values.Value(environ_name='AWS_SECRET_ACCESS_KEY')
-    AWS_STORAGE_BUCKET_NAME = values.Value(
-        environ_name='AWS_STORAGE_BUCKET_NAME')
-    AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
-
-    AWS_S3_OBJECT_PARAMETERS = {
-        'CacheControl': 'max-age=86400',
-    }
-
-    AWS_LOCATION = 'static'
-    STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-    STATIC_URL = "https://%s/%s/" % (AWS_S3_CUSTOM_DOMAIN, AWS_LOCATION)
-
-    DEFAULT_FILE_STORAGE = 'forsa.storage_backends.MediaStorage'
 
 
 class Development(Common):
@@ -154,6 +141,10 @@ class Development(Common):
         'debug_toolbar.middleware.DebugToolbarMiddleware'
     ]
 
+    STATIC_URL = '/static/'
+    STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+    STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
 
 class Staging(Common):
     """
@@ -171,6 +162,22 @@ class Staging(Common):
     SECURE_PROXY_SSL_HEADER = values.TupleValue(
         ('HTTP_X_FORWARDED_PROTO', 'https')
     )
+    
+    AWS_ACCESS_KEY_ID = values.Value(environ_name='AWS_ACCESS_KEY_ID')
+    AWS_SECRET_ACCESS_KEY = values.Value(environ_name='AWS_SECRET_ACCESS_KEY')
+    AWS_STORAGE_BUCKET_NAME = values.Value(
+        environ_name='AWS_STORAGE_BUCKET_NAME')
+    AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
+
+    AWS_S3_OBJECT_PARAMETERS = {
+        'CacheControl': 'max-age=86400',
+    }
+
+    AWS_LOCATION = 'static'
+    STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+    STATIC_URL = "https://%s/%s/" % (AWS_S3_CUSTOM_DOMAIN, AWS_LOCATION)
+
+    DEFAULT_FILE_STORAGE = 'forsa.storage_backends.MediaStorage'
 
     ALLOWED_HOSTS = ['forsa-staging.herokuapp.com', 'staging.forsa.om']
 

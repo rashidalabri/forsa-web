@@ -1,4 +1,5 @@
 {% load static %}
+{% load i18n %}
 <!doctype html>
 <html lang="en">
 
@@ -37,7 +38,8 @@
                         </li>
                     </ul>
                     <form method="GET" action="{% url 'wajiha:index' %}" class="form-inline my-2 my-lg-0">
-                        <input required="false" name="q" class="form-control mr-sm-2" type="text" placeholder="عن ما تبحث؟" value="{{ request.GET.q }}">
+                        <input required="false" name="q" class="form-control mr-sm-2" type="text"
+                            placeholder="عن ما تبحث؟" value="{% if request.GET.q %}{{ request.GET.q }}{% endif %}">
                         <button class="btn btn-outline-light my-2 my-sm-0" type="submit">بحث</button>
                     </form>
                 </div>
@@ -53,7 +55,8 @@
                     <div class="container">
                         <div class="carousel-caption text-left">
                             <h1>نبني مستقبلَ وطنِنا، فرصةً بفرصة.</h1>
-                            <p>"فرصة" هي عبارة عن منصة تمكن العمانيين من اكتشاف ومتابعة الفرص جديدة المتواجدة في السلطنة، من البرامج الصيفية إلى فرصِ العمل، "فرصة" هو المكان المناسب لك.</p>
+                            <p> منصة فرصة تمكن العمانيين من اكتشاف ومتابعة الفرص الجديدة المتواجدة في
+                                السلطنة، من البرامج الصيفية إلى فرصِ العمل، "فرصة" هو المكان المناسب لك.</p>
                         </div>
                     </div>
                 </div>
@@ -64,8 +67,7 @@
         <footer class="page-footer font-small blue">
             <div class="container">
                 <hr>
-                <div class="footer-copyright text-center py-3">مرخص تحت رخصة MIT | <a
-                        href="https://github.com/forsa-om/forsa-web">مفتوح المصدر</a>
+                <div class="footer-copyright text-center py-3">&copy; كل الحقوق محفوضة لدى فرصة في سلطنة عمان
                 </div>
             </div>
         </footer>

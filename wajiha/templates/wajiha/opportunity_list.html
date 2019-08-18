@@ -1,5 +1,6 @@
 {% extends "wajiha/base.html" %}
 {% load bootstrap_pagination %}
+{% load i18n %}
 
 {% block title %}Discover Opportunities in Oman{% endblock title %}
 
@@ -10,6 +11,6 @@
             {% include 'wajiha/components/opportunity_card.html' %}
         {% endfor %}
     </div>
-    {% bootstrap_paginate page_obj range=10 centered="true" %}
+    {% bootstrap_paginate page_obj range=10 centered="true" previous_label="→" next_label="←" %}
 </div>
 {% endblock %}

@@ -12,7 +12,7 @@
             <div class="d-flex justify-content-between align-items-center">
                 <a href="{% url 'wajiha:opportunity_detail' pk=opportunity.pk slug=opportunity.slug %}"><button
                         type="button" class="btn btn-primary">المزيد</button></a>
-                <small class="text-muted">{{ opportunity.created_at|naturaltime }}</small>
+                <small class="text-muted">منذ {{ opportunity.created_at|timesince }}</small>
             </div>
         </div>
     </div>
