@@ -1,6 +1,16 @@
 {% extends "wajiha/base.html" %}
 {% load humanize %}
 
+{% block meta %}
+<meta property="og:site_name" content="Forsa.om" />
+<meta property="og:title" content="{{ opportunity.title }}" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="{% url 'wajiha:opportunity_detail' pk=opportunity.pk slug=opportunity.slug %}" />
+<meta property="og:image" content="{{ opportunity.image.url }}" />
+<meta property="og:description" content="{{ opportunity.description|slice:":100"  }}..."/>
+{% endblock %}
+
+
 {% block title %}{{ opportunity.title }}{% endblock %}
 
 {% block content %}
