@@ -21,17 +21,17 @@
                         <hr>
                         {% if opportunity.website %}
                         <a href="{{ opportunity.website }}"><button
-                                type="button" class="btn btn-primary">الموقع الإلكتروني</button></a>
+                                type="button" class="btn btn-primary my-1">الموقع الإلكتروني</button></a>
                         {% endif %}
 
                         {% if opportunity.phone_number %}
                         <a href="tel:{{ opportunity.phone_number }}"><button
-                            type="button" class="btn btn-success">الهاتف: {{ opportunity.phone_number }}</button></a>
+                            type="button" class="btn btn-success my-1">الهاتف: {{ opportunity.phone_number }}</button></a>
                         {% endif %}
 
                         {% if opportunity.email %}
                         <a href="mailto:{{ opportunity.email }}"><button
-                            type="button" class="btn btn-danger">البريد الإلكتروني: {{ opportunity.email }}</button></a>
+                            type="button" class="btn btn-danger my-1">البريد الإلكتروني: {{ opportunity.email }}</button></a>
                         {% endif %}
                     </div>
                 </div>
