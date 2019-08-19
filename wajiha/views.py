@@ -34,8 +34,8 @@ class OpportunityDetailView(DetailView):
     def get(self, request, *args, **kwargs):
         opportunity = get_object_or_404(
             self.model, pk=kwargs['pk'], slug=kwargs['slug'])
-        similar_opportunities = self.model.objects.filter(
-            category=opportunity.category, hidden=False).exclude(id=opportunity.id)[:3]
+        similar_opportunities = list(self.model.objects.filter(
+            category=opportunity.category, hidden=False).exclude(id=opportunity.id)[:3])
         shuffle(similar_opportunities)
         context = {'opportunity': opportunity,
                    'similar_opportunities': similar_opportunities}
