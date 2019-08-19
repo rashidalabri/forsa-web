@@ -6,7 +6,7 @@
 <meta property="og:title" content="{{ opportunity.title }}" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://forsa.om{% url 'wajiha:opportunity_detail' pk=opportunity.pk slug=opportunity.slug %}" />
-<meta property="og:image:secure_url" itemprop="image" content="{{ opportunity.image.url }}" />
+<meta property="og:image" itemprop="image" content="{{ opportunity.image.url }}" />
 <meta property="og:description" content="{{ opportunity.description|slice:":100"  }}..."/>
 {% endblock %}
 
