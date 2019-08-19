@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils import timezone
 from django.utils.text import slugify
+from django.urls import reverse
 
 
 class OpportunityCategory(models.Model):
@@ -9,13 +10,15 @@ class OpportunityCategory(models.Model):
     def __str__(self):
         return self.name
 
+
 class Opportunity(models.Model):
     slug = models.SlugField(allow_unicode=True)
 
     title = models.CharField(max_length=250)
     description = models.TextField()
 
-    category = models.ForeignKey(OpportunityCategory, models.SET_DEFAULT, default=1)
+    category = models.ForeignKey(
+        OpportunityCategory, models.SET_DEFAULT, default=1)
 
     image = models.ImageField(default='default.jpg')
 
@@ -38,6 +41,8 @@ class Opportunity(models.Model):
             self.slug = slugify(self.title)
         super(Opportunity, self).save(*args, **kwargs)
 
+    def get_absolute_url(self):
+        return reverse('wajiha:opportunity_detail', args=[self.pk, self.slug])
+
     def __str__(self):
         return self.title
-

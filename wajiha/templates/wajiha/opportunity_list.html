@@ -2,13 +2,18 @@
 {% load bootstrap_pagination %}
 {% load i18n %}
 
-{% block title %}Discover Opportunities in Oman{% endblock title %}
+{% block title %}اكتشف فرصاً جديدة في سلطنة عمان{% endblock title %}
 
 {% block content %}
 <div class="container">
+    <div class="jumbotron" style="padding: 2rem 2rem;">
+        <h3>هل ترغب في نشر فرصة؟</h3>
+        <p>منصة فرصة تعتمد على سخاء المستخدمين أمثالك في نشر الفرص وتحقيق مهمتها.</p>
+        <a class="btn btn-primary" href="{% url 'wajiha:opportunity_create' %}" role="button"> أُنشر فرصة &raquo;</a>
+    </div>
     <div class="row">
         {% for opportunity in object_list %}
-            {% include 'wajiha/components/opportunity_card.html' %}
+        {% include 'wajiha/components/opportunity_card.html' %}
         {% endfor %}
     </div>
     {% bootstrap_paginate page_obj range=10 centered="true" previous_label="→" next_label="←" %}

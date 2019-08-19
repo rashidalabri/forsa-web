@@ -11,6 +11,7 @@ class OpportunityCreationForm(forms.ModelForm):
     email = forms.EmailField(required=False)
     age_min = forms.IntegerField(required=False)
     age_max = forms.IntegerField(required=False)
+    image = forms.ImageField(required=False)
 
     def __init__(self, *args, **kwargs):
         super(OpportunityCreationForm, self).__init__(*args, **kwargs)

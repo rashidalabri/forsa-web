@@ -8,7 +8,6 @@ from django.views.generic.detail import DetailView
 from django.views.generic.edit import FormView
 from django.views.generic import TemplateView
 
-
 from django.db.models import Q
 
 from wajiha.models import Opportunity
@@ -61,3 +60,4 @@ class OpportunityCreationSuccessView(TemplateView):
 
 class ContactView(TemplateView):
     template_name = 'wajiha/contact.html'
+

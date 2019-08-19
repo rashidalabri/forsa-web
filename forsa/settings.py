@@ -13,8 +13,6 @@ from configurations import Configuration, values
 
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
-print(BASE_DIR)
-
 
 class Common(Configuration):
     # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -39,6 +37,8 @@ class Common(Configuration):
         'django.contrib.staticfiles',
         'django.contrib.humanize',
         'django.contrib.postgres',
+        'django.contrib.sites',
+        'django.contrib.sitemaps',
 
         'django_extensions',
         'debug_toolbar',
@@ -47,6 +47,8 @@ class Common(Configuration):
         'bootstrap_pagination',
 
         'storages',
+
+        'django_hashedfilenamestorage',
 
         'forsa.users',
 
@@ -78,6 +80,7 @@ class Common(Configuration):
                     'django.contrib.auth.context_processors.auth',
                     'django.contrib.messages.context_processors.messages',
                     'django.template.context_processors.request',
+                    'wajiha.context_processors.google_analytics_key',
                 ],
             },
         },
@@ -122,6 +125,7 @@ class Common(Configuration):
 
     DATABASES = values.DatabaseURLValue(environ_name='DATABASE_URL')
 
+    SITE_ID = 1
 
 
 class Development(Common):
@@ -145,6 +149,10 @@ class Development(Common):
     STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
     STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
+    DEFAULT_FILE_STORAGE = 'django_hashedfilenamestorage.storage.HashedFilenameFileSystemStorage'
+
+    GOOGLE_ANALYTICS_KEY = ''
+
 
 class Staging(Common):
     """
@@ -162,7 +170,7 @@ class Staging(Common):
     SECURE_PROXY_SSL_HEADER = values.TupleValue(
         ('HTTP_X_FORWARDED_PROTO', 'https')
     )
-    
+
     AWS_ACCESS_KEY_ID = values.Value(environ_name='AWS_ACCESS_KEY_ID')
     AWS_SECRET_ACCESS_KEY = values.Value(environ_name='AWS_SECRET_ACCESS_KEY')
     AWS_STORAGE_BUCKET_NAME = values.Value(
@@ -177,7 +185,9 @@ class Staging(Common):
     STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
     STATIC_URL = "https://%s/%s/" % (AWS_S3_CUSTOM_DOMAIN, AWS_LOCATION)
 
-    DEFAULT_FILE_STORAGE = 'forsa.storage_backends.MediaStorage'
+    DEFAULT_FILE_STORAGE = 'forsa.storage_backends.S3HashedFilenameStorage'
+
+    GOOGLE_ANALYTICS_KEY = ''
 
     ALLOWED_HOSTS = ['forsa-staging.herokuapp.com', 'staging.forsa.om']
 
@@ -186,5 +196,8 @@ class Production(Staging):
     """
     The in-production settings.
     """
+
+    GOOGLE_ANALYTICS_KEY = 'UA-145916646-1'
+
     ALLOWED_HOSTS = ['forsa-production.herokuapp.com',
                      'forsa.om', 'www.forsa.om']
