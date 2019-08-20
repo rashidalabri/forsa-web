@@ -58,6 +58,8 @@ class Common(Configuration):
     ]
 
     MIDDLEWARE = [
+        'django.middleware.cache.UpdateCacheMiddleware',
+        'htmlmin.middleware.HtmlMinifyMiddleware',
         'django.middleware.security.SecurityMiddleware',
         'whitenoise.middleware.WhiteNoiseMiddleware',
         'django.contrib.sessions.middleware.SessionMiddleware',
@@ -66,6 +68,8 @@ class Common(Configuration):
         'django.contrib.auth.middleware.AuthenticationMiddleware',
         'django.contrib.messages.middleware.MessageMiddleware',
         'django.middleware.clickjacking.XFrameOptionsMiddleware',
+        'django.middleware.cache.FetchFromCacheMiddleware',
+        'htmlmin.middleware.MarkRequestMiddleware',
     ]
 
     ROOT_URLCONF = 'forsa.urls'
@@ -158,6 +162,12 @@ class Development(Common):
     MEDIA_ROOT = BASE_DIR + '/media'
     MEDIA_URL = 'media/'
 
+    CACHES = {
+        'default': {
+            'BACKEND': 'django.core.cache.backends.dummy.DummyCache',
+        }
+    }
+
 
 class Staging(Common):
     """
@@ -194,7 +204,11 @@ class Staging(Common):
 
     GOOGLE_ANALYTICS_KEY = ''
 
+    HTML_MINIFY = True
+
     ALLOWED_HOSTS = ['forsa-staging.herokuapp.com', 'staging.forsa.om']
+
+    CACHES = values.CacheURLValue('memcached://127.0.0.1:11211/')
 
 
 class Production(Staging):
