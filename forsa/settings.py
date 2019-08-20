@@ -46,6 +46,8 @@ class Common(Configuration):
         'crispy_forms',
         'bootstrap_pagination',
 
+        'sorl.thumbnail',
+
         'storages',
 
         'django_hashedfilenamestorage',
@@ -107,7 +109,7 @@ class Common(Configuration):
 
     # Internationalization
     # https://docs.djangoproject.com/en/2.2/topics/i18n/
-    LANGUAGE_CODE = 'ar'
+    LANGUAGE_CODE = 'ar-om'
 
     TIME_ZONE = 'Asia/Muscat'
 
@@ -152,6 +154,9 @@ class Development(Common):
     DEFAULT_FILE_STORAGE = 'django_hashedfilenamestorage.storage.HashedFilenameFileSystemStorage'
 
     GOOGLE_ANALYTICS_KEY = ''
+
+    MEDIA_ROOT = BASE_DIR + '/media'
+    MEDIA_URL = 'media/'
 
 
 class Staging(Common):

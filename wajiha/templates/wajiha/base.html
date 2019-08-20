@@ -1,24 +1,13 @@
 {% load static %}
-{% load i18n %}
+{% load thumbnail %}
 <!doctype html>
-<html lang="en">
+<html lang="ar">
 
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     {% block meta %}{% endblock meta %}
-
-    {% if GOOGLE_ANALYTICS_KEY %}
-    <script async src="https://www.googletagmanager.com/gtag/js?id={{ GOOGLE_ANALYTICS_KEY }}"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag() { dataLayer.push(arguments); }
-        gtag('js', new Date());
-
-        gtag('config', '{{ GOOGLE_ANALYTICS_KEY }}');
-    </script>
-    {% endif %}
 
     <link href="https://fonts.googleapis.com/css?family=Tajawal&display=swap" rel="stylesheet">
 
@@ -64,7 +53,7 @@
         <div id="myCarousel" class="carousel slide" data-ride="carousel">
             <div class="carousel-inner">
                 <div class="carousel-item active"
-                    style="background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)),url('{% static 'img/header.jpg' %}') no-repeat center top; background-size: cover;">
+                    style="background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)),url('{% static 'img/header_1920.jpg' %}') no-repeat center top; background-size: cover;">
                     <div class="container">
                         <div class="carousel-caption text-left">
                             <h1>نبني مستقبلَ وطنِنا، فرصةً بفرصة.</h1>
@@ -85,10 +74,22 @@
             </div>
         </footer>
     </main>
+
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
         </script>
     <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+
+    {% if GOOGLE_ANALYTICS_KEY %}
+    <script async src="https://www.googletagmanager.com/gtag/js?id={{ GOOGLE_ANALYTICS_KEY }}"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', '{{ GOOGLE_ANALYTICS_KEY }}');
+    </script>
+    {% endif %}
 
     <script type='text/javascript'
         data-cfasync='false'>window.purechatApi = { l: [], t: [], on: function () { this.l.push(arguments); } }; (function () { var done = false; var script = document.createElement('script'); script.async = true; script.type = 'text/javascript'; script.src = 'https://app.purechat.com/VisitorWidget/WidgetScript'; document.getElementsByTagName('HEAD').item(0).appendChild(script); script.onreadystatechange = script.onload = function (e) { if (!done && (!this.readyState || this.readyState == 'loaded' || this.readyState == 'complete')) { var w = new PCWidget({ c: 'c155f4bd-9446-4ec5-a395-2a627807d7dc', f: true }); done = true; } }; })();</script>

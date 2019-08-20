@@ -94,3 +94,5 @@ db.sqlite3
 
 forsa-debug.env
 .env
+
+media/*

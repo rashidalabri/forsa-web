@@ -2,6 +2,7 @@ from django.db import models
 from django.utils import timezone
 from django.utils.text import slugify
 from django.urls import reverse
+from sorl import thumbnail
 
 
 class OpportunityCategory(models.Model):
@@ -20,7 +21,7 @@ class Opportunity(models.Model):
     category = models.ForeignKey(
         OpportunityCategory, models.SET_DEFAULT, default=1)
 
-    image = models.ImageField(default='default.jpg')
+    image = thumbnail.ImageField(default='default.jpg')
 
     start_at = models.DateField(null=True, blank=True)
     end_at = models.DateField(null=True, blank=True)
