@@ -20,7 +20,7 @@
         <div class="card col-md mb-3">
             <div class="row no-gutters">
                 <div class="col-md-4">
-                    <img src="{{ opportunity.image.url }}" class="card-img" height="100%" width="100%">
+                    <img src="{% thumbnail opportunity.image '512' as im %}{{ im.url }}{% endthumbnail %}" class="card-img" height="100%" width="100%">
                 </div>
                 <div class="col-md-8">
                     <div class="card-body">
