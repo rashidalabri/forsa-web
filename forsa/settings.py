@@ -208,7 +208,7 @@ class Staging(Common):
 
     ALLOWED_HOSTS = ['forsa-staging.herokuapp.com', 'staging.forsa.om']
 
-    CACHES = values.CacheURLValue('memcached://127.0.0.1:11211/')
+    CACHES = values.CacheURLValue()
 
 
 class Production(Staging):
