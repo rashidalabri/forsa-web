@@ -157,8 +157,6 @@ class Development(Common):
 
     DEFAULT_FILE_STORAGE = 'django_hashedfilenamestorage.storage.HashedFilenameFileSystemStorage'
 
-    GOOGLE_ANALYTICS_KEY = ''
-
     MEDIA_ROOT = BASE_DIR + '/media'
     MEDIA_URL = 'media/'
 
@@ -168,6 +166,7 @@ class Development(Common):
         }
     }
 
+
 class Staging(Common):
     """
     The in-staging settings.
@@ -176,20 +175,14 @@ class Staging(Common):
     SESSION_COOKIE_SECURE = values.BooleanValue(True)
     SECURE_BROWSER_XSS_FILTER = values.BooleanValue(True)
     SECURE_CONTENT_TYPE_NOSNIFF = values.BooleanValue(True)
-    SECURE_HSTS_INCLUDE_SUBDOMAINS = values.BooleanValue(True)
-    SECURE_HSTS_SECONDS = values.IntegerValue(31536000)
     SECURE_REDIRECT_EXEMPT = values.ListValue([])
-    SECURE_SSL_HOST = values.Value(None)
-    SECURE_SSL_REDIRECT = values.BooleanValue(True)
-    SECURE_PROXY_SSL_HEADER = values.TupleValue(
-        ('HTTP_X_FORWARDED_PROTO', 'https')
-    )
 
     AWS_ACCESS_KEY_ID = values.Value(environ_name='AWS_ACCESS_KEY_ID')
     AWS_SECRET_ACCESS_KEY = values.Value(environ_name='AWS_SECRET_ACCESS_KEY')
     AWS_STORAGE_BUCKET_NAME = values.Value(
         environ_name='AWS_STORAGE_BUCKET_NAME')
-    AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
+    AWS_S3_CUSTOM_DOMAIN = values.Value(
+        environ_name='AWS_S3_CUSTOM_DOMAIN')
 
     AWS_S3_OBJECT_PARAMETERS = {
         'CacheControl': 'max-age=86400',
@@ -201,8 +194,6 @@ class Staging(Common):
 
     DEFAULT_FILE_STORAGE = 'forsa.storage_backends.S3HashedFilenameStorage'
 
-    GOOGLE_ANALYTICS_KEY = ''
-
     HTML_MINIFY = True
 
     ALLOWED_HOSTS = ['forsa-staging.herokuapp.com', 'staging.forsa.om']
@@ -213,6 +204,8 @@ class Staging(Common):
             'LOCATION': 'forsa_cache',
         }
     }
+
+    THUMBNAIL_FORCE_OVERWRITE = True
 
 
 class Production(Staging):
