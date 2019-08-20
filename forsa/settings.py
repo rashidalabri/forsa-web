@@ -133,6 +133,8 @@ class Common(Configuration):
 
     SITE_ID = 1
 
+    GOOGLE_ANALYTICS_KEY = ''
+
 
 class Development(Common):
     """
