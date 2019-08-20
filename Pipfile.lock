@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "5d0a0a9246192a1d0fd574f83890fd2fea10b40cf8b01420593a0da1ebef0a2c"
+            "sha256": "198ecf8bfc2c8e7e82e8019556362d9a5885b8ba9871a8589c4f83c38194b96d"
         },
         "pipfile-spec": 6,
         "requires": {},
@@ -219,17 +219,6 @@
             "index": "pypi",
             "version": "==2.8.2"
         },
-        "pylibmc": {
-            "hashes": [
-                "sha256:01a7e2e3fa9fcd7a791c7818a80a07e7a381aee988a5d810a1c1e6f7a9a288fd",
-                "sha256:6fff384e3c30af029bbac87f88b3fab14ae87b50103d389341d9b3e633349a3f",
-                "sha256:8a8dd406487d419d58c6d944efd91e8189b360a0c4d9e8c6ebe3990d646ae7e9",
-                "sha256:c749b4251c1137837d00542b62992b96cd2aed639877407f66291120dd6de2ff",
-                "sha256:e6c0c452336db0868d0de521d48872c2a359b1233b974c6b32c36ce68abc4820"
-            ],
-            "index": "pypi",
-            "version": "==1.6.1"
-        },
         "python-dateutil": {
             "hashes": [
                 "sha256:7e6584c74aeed623791615e26efd690f29817a27c73085b78e4bad02493df2fb",
@@ -237,14 +226,6 @@
             ],
             "markers": "python_version >= '2.7'",
             "version": "==2.8.0"
-        },
-        "python-memcached": {
-            "hashes": [
-                "sha256:4dac64916871bd3550263323fc2ce18e1e439080a2d5670c594cf3118d99b594",
-                "sha256:a2e28637be13ee0bf1a8b6843e7490f9456fd3f2a4cb60471733c7b5d5557e4f"
-            ],
-            "index": "pypi",
-            "version": "==1.59"
         },
         "pytz": {
             "hashes": [

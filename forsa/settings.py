@@ -162,15 +162,11 @@ class Development(Common):
     MEDIA_ROOT = BASE_DIR + '/media'
     MEDIA_URL = 'media/'
 
-    # CACHES = {
-    #     'default': {
-    #         'BACKEND': 'django.core.cache.backends.dummy.DummyCache',
-    #     }
-    # }
-
-    CACHES = values.CacheURLValue('memcached://memcached-app138540779:OFga2uq8hBsjLUYuY8e3bbC0QtGjhv3k@memcached-13057.c52.us-east-1-4.ec2.cloud.redislabs.com:13057')
-
-
+    CACHES = {
+        'default': {
+            'BACKEND': 'django.core.cache.backends.dummy.DummyCache',
+        }
+    }
 
 class Staging(Common):
     """
@@ -211,7 +207,12 @@ class Staging(Common):
 
     ALLOWED_HOSTS = ['forsa-staging.herokuapp.com', 'staging.forsa.om']
 
-    CACHES = values.CacheURLValue()
+    CACHES = {
+        'default': {
+            'BACKEND': 'django.core.cache.backends.db.DatabaseCache',
+            'LOCATION': 'forsa_cache',
+        }
+    }
 
 
 class Production(Staging):
