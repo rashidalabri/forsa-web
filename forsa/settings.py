@@ -86,7 +86,7 @@ class Common(Configuration):
                     'django.contrib.auth.context_processors.auth',
                     'django.contrib.messages.context_processors.messages',
                     'django.template.context_processors.request',
-                    'wajiha.context_processors.google_analytics_key',
+                    'wajiha.context_processors.google_keys',
                 ],
             },
         },
@@ -134,6 +134,9 @@ class Common(Configuration):
     SITE_ID = 1
 
     GOOGLE_ANALYTICS_KEY = ''
+    GTM_KEY = ''
+
+    ADMIN_URL = 'admin/'
 
 
 class Development(Common):
@@ -173,12 +176,15 @@ class Staging(Common):
     """
     The in-staging settings.
     """
+    ALLOWED_HOSTS = ['forsa-staging.herokuapp.com', 'staging.forsa.om']
+
     # Security
-    SESSION_COOKIE_SECURE = values.BooleanValue(True)
     SECURE_BROWSER_XSS_FILTER = values.BooleanValue(True)
     SECURE_CONTENT_TYPE_NOSNIFF = values.BooleanValue(True)
     SECURE_REDIRECT_EXEMPT = values.ListValue([])
+    X_FRAME_OPTIONS = 'DENY'
 
+    # Amazon S3 settings
     AWS_ACCESS_KEY_ID = values.Value(environ_name='AWS_ACCESS_KEY_ID')
     AWS_SECRET_ACCESS_KEY = values.Value(environ_name='AWS_SECRET_ACCESS_KEY')
     AWS_STORAGE_BUCKET_NAME = values.Value(
@@ -190,32 +196,35 @@ class Staging(Common):
         'CacheControl': 'max-age=86400',
     }
 
+    # Static assets
     AWS_LOCATION = 'static'
     STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
     STATIC_URL = "https://%s/%s/" % (AWS_S3_CUSTOM_DOMAIN, AWS_LOCATION)
 
+    # Media assets
     DEFAULT_FILE_STORAGE = 'forsa.storage_backends.S3HashedFilenameStorage'
 
     HTML_MINIFY = True
 
-    ALLOWED_HOSTS = ['forsa-staging.herokuapp.com', 'staging.forsa.om']
-
     CACHES = {
         'default': {
-            'BACKEND': 'django.core.cache.backends.db.DatabaseCache',
-            'LOCATION': 'forsa_cache',
+            'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+            'LOCATION': 'unique-snowflake',
         }
     }
 
     THUMBNAIL_FORCE_OVERWRITE = True
+
+    ADMIN_URL = values.Value(
+        environ_name='ADMIN_URL')
 
 
 class Production(Staging):
     """
     The in-production settings.
     """
-
-    GOOGLE_ANALYTICS_KEY = 'UA-145916646-1'
-
     ALLOWED_HOSTS = ['forsa-production.herokuapp.com',
                      'forsa.om', 'www.forsa.om']
+
+    GOOGLE_ANALYTICS_KEY = 'UA-145916646-1'
+    GTM_KEY = 'GTM-M7NRK2P'

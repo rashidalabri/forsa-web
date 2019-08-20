@@ -14,10 +14,52 @@
     <link rel="stylesheet" href="{% static 'css/rtl/bootstrap.min.css' %}">
     <link rel="stylesheet" href="{% static 'css/custom.css' %}">
 
+    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'apple-touch-icon.png' %}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'favicon-32x32.png' %}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'favicon-16x16.png' %}">
+    <link rel="manifest" href="{% static 'site.webmanifest' %}">
+    <link rel="mask-icon" href="{% static 'safari-pinned-tab.svg' %}" color="#5bbad5">
+    <link rel="shortcut icon" href="{% static 'favicon.ico' %}">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="msapplication-config" content="{% static 'browserconfig.xml' %}">
+    <meta name="theme-color" content="#ffffff">
+
     <title>{% block title %}{% endblock title %} | فرصة</title>
+
+    {% if GTM_KEY %}
+    <!-- Google Tag Manager -->
+    <script>(function (w, d, s, l, i) {
+            w[l] = w[l] || []; w[l].push({
+                'gtm.start':
+                    new Date().getTime(), event: 'gtm.js'
+            }); var f = d.getElementsByTagName(s)[0],
+                j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+                    'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+        })(window, document, 'script', 'dataLayer', '{{ GTM_KEY }}');</script>
+    <!-- End Google Tag Manager -->
+    {% endif %}
+
+    {% if GOOGLE_ANALYTICS_KEY %}
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id={{ GOOGLE_ANALYTICS_KEY }}"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', '{{ GOOGLE_ANALYTICS_KEY }}');
+    </script>
+    <!-- End Google Analytics -->
+    {% endif %}
 </head>
 
 <body>
+    {% if GTM_KEY %}
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id={{ GTM_KEY }}" height="0" width="0"
+            style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+    {% endif %}
     <header>
         <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
             <div class="container">
@@ -80,19 +122,9 @@
         </script>
     <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
 
-    {% if GOOGLE_ANALYTICS_KEY %}
-    <script async src="https://www.googletagmanager.com/gtag/js?id={{ GOOGLE_ANALYTICS_KEY }}"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag() { dataLayer.push(arguments); }
-        gtag('js', new Date());
-
-        gtag('config', '{{ GOOGLE_ANALYTICS_KEY }}');
-    </script>
-    {% endif %}
-
     <script type='text/javascript'
         data-cfasync='false'>window.purechatApi = { l: [], t: [], on: function () { this.l.push(arguments); } }; (function () { var done = false; var script = document.createElement('script'); script.async = true; script.type = 'text/javascript'; script.src = 'https://app.purechat.com/VisitorWidget/WidgetScript'; document.getElementsByTagName('HEAD').item(0).appendChild(script); script.onreadystatechange = script.onload = function (e) { if (!done && (!this.readyState || this.readyState == 'loaded' || this.readyState == 'complete')) { var w = new PCWidget({ c: 'c155f4bd-9446-4ec5-a395-2a627807d7dc', f: true }); done = true; } }; })();</script>
+
 </body>
 
 </html>
