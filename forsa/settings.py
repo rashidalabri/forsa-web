@@ -185,9 +185,7 @@ class Staging(Common):
         'debug_toolbar.middleware.DebugToolbarMiddleware'
     ]
 
-    INTERNAL_IPS = [
-        '*'
-    ]
+    INTERNAL_IPS = values.ListValue()
 
     # Security
     SECURE_BROWSER_XSS_FILTER = values.BooleanValue(True)
