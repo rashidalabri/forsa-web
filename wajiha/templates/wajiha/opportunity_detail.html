@@ -8,7 +8,7 @@
 <meta property="og:title" content="{{ opportunity.title }}" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://forsa.om{% url 'wajiha:opportunity_detail' pk=opportunity.pk slug=opportunity.slug %}" />
-<meta property="og:image" itemprop="image" content="{{ opportunity.image.url }}" />
+<meta property="og:image" itemprop="image" content="{% thumbnail opportunity.image '256' as im %}{{ im.url }}{% endthumbnail %}" />
 <meta property="og:description" content="{{ opportunity.description|slice:":100"  }}..."/>
 {% endblock %}
 
@@ -22,7 +22,7 @@
         <div class="card col-md mb-3">
             <div class="row no-gutters">
                 <div class="col-md-4">
-                    <img src="{{ opportunity.image.url }}" class="card-img" height="100%" width="100%">
+                    <img src="{% thumbnail opportunity.image '512' as im %}{{ im.url }}{% endthumbnail %}" class="card-img" height="100%" width="100%">
                 </div>
                 <div class="col-md-8">
                     <div class="card-body">
@@ -60,7 +60,7 @@
         <div class="col-md-4">
             <div class="card mb-4 shadow-sm">
 
-                <img src="{{ opportunity.image.url }}" class="bd-placeholder-img card-img-top" width="100%"
+                <img src="{% thumbnail opportunity.image '256' as im %}{{ im.url }}{% endthumbnail %}" class="bd-placeholder-img card-img-top" width="100%"
                     height="225" />
 
                 <div class="card-body">

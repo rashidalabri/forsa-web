@@ -37,12 +37,6 @@ class Opportunity(models.Model):
 
     hidden = models.BooleanField(default=True)
 
-    def save(self, *args, **kwargs):
-        if self.image:
-            self.image = thumbnail.get_thumbnail(
-                self.image, '512', quality=75, format='JPEG')
-        super(Opportunity, self).save(*args, **kwargs)
-
     def get_absolute_url(self):
         return reverse('wajiha:opportunity_detail', args=[self.pk, self.slug])
 
