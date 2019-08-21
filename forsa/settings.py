@@ -146,7 +146,8 @@ class Development(Common):
     """
     The in-development settings and the default configuration.
     """
-    DEBUG = True
+    DEBUG = values.BooleanValue(True)
+    DEBUG_TOOLBAR = values.BackendsValue(True)
 
     ALLOWED_HOSTS = values.ListValue(
         ['*.forsa.om', 'forsa-development.herokuapp.com', '127.0.0.1'])
@@ -178,12 +179,12 @@ class Staging(Common):
     """
     ALLOWED_HOSTS = ['forsa-staging.herokuapp.com', 'staging.forsa.om']
 
-    DEBUG = values.BooleanValue(False, environ_name='DEBUG')
+    DEBUG = values.BooleanValue(False)
+    DEBUG_TOOLBAR = values.BackendsValue(True)
 
-    if DEBUG:
-        MIDDLEWARE = Common.MIDDLEWARE + [
-            'debug_toolbar.middleware.DebugToolbarMiddleware'
-        ]
+    MIDDLEWARE = Common.MIDDLEWARE + [
+        'debug_toolbar.middleware.DebugToolbarMiddleware'
+    ]
 
     # Security
     SECURE_BROWSER_XSS_FILTER = values.BooleanValue(True)
