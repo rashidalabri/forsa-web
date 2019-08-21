@@ -178,6 +178,8 @@ class Staging(Common):
     """
     ALLOWED_HOSTS = ['forsa-staging.herokuapp.com', 'staging.forsa.om']
 
+    DEBUG = values.BooleanValue(environ_name='DEBUG')
+
     # Security
     SECURE_BROWSER_XSS_FILTER = values.BooleanValue(True)
     SECURE_CONTENT_TYPE_NOSNIFF = values.BooleanValue(True)
@@ -218,11 +220,16 @@ class Staging(Common):
     ADMIN_URL = values.Value(
         environ_name='ADMIN_URL')
 
+    
+
 
 class Production(Staging):
     """
     The in-production settings.
     """
+
+    DEBUG = False
+
     ALLOWED_HOSTS = ['forsa-production.herokuapp.com',
                      'forsa.om', 'www.forsa.om']
 
