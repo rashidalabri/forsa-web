@@ -22,7 +22,9 @@ class OpportunityListView(ListView):
     paginate_by = 30
 
     def get_queryset(self):
-        search_string = self.request.GET.get('q', '')
+        search_string = self.request.GET.get('q', None)
+        if search_string is None:
+            return self.model.objects.filter(hidden=False)
         return self.model.objects.filter(Q(hidden=False),
                                          Q(description__icontains=search_string) | Q(title__icontains=search_string))
 
@@ -60,4 +62,3 @@ class OpportunityCreationSuccessView(TemplateView):
 
 class ContactView(TemplateView):
     template_name = 'wajiha/contact.html'
-

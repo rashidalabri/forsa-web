@@ -38,8 +38,9 @@ class Opportunity(models.Model):
     hidden = models.BooleanField(default=True)
 
     def save(self, *args, **kwargs):
-        if self.slug in [None, '', u'']:
-            self.slug = slugify(self.title)
+        if self.image:
+            self.image = thumbnail.get_thumbnail(
+                self.image, '512', quality=75, format='JPEG')
         super(Opportunity, self).save(*args, **kwargs)
 
     def get_absolute_url(self):
