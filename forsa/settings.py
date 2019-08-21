@@ -180,6 +180,11 @@ class Staging(Common):
 
     DEBUG = values.BooleanValue(False, environ_name='DEBUG')
 
+    if DEBUG:
+        MIDDLEWARE = Common.MIDDLEWARE + [
+            'debug_toolbar.middleware.DebugToolbarMiddleware'
+        ]
+
     # Security
     SECURE_BROWSER_XSS_FILTER = values.BooleanValue(True)
     SECURE_CONTENT_TYPE_NOSNIFF = values.BooleanValue(True)
