@@ -135,12 +135,17 @@ class Common(Configuration):
 
     ADMIN_URL = values.Value('admin/')
 
+    # Hacky solution to a problem
+    MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+    MEDIA_URL = 'media/'
+
+
 
 class Development(Common):
     """
     The in-development settings and the default configuration.
     """
-    #DEBUG = values.BooleanValue(True)
+    DEBUG = values.BooleanValue(True)
     DEBUG_TOOLBAR = values.BooleanValue(True)
 
     ALLOWED_HOSTS = values.ListValue(
@@ -157,9 +162,6 @@ class Development(Common):
     STATIC_URL = '/static/'
     STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
     STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-
-    MEDIA_ROOT = os.path.join(Common.BASE_DIR, 'media')
-    MEDIA_URL = 'media/'
 
     DEFAULT_FILE_STORAGE = 'django_hashedfilenamestorage.storage.HashedFilenameFileSystemStorage'
 
