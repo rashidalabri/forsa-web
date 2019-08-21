@@ -15,6 +15,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
 
 class Common(Configuration):
+
     # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
     BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
@@ -23,6 +24,7 @@ class Common(Configuration):
 
     # SECURITY WARNING: don't run with debug turned on in production!
     DEBUG = values.BooleanValue(False)
+    DEBUG_TOOLBAR = values.BooleanValue(False)
 
     ALLOWED_HOSTS = values.ListValue([])
 
@@ -59,7 +61,6 @@ class Common(Configuration):
 
     MIDDLEWARE = [
         'django.middleware.cache.UpdateCacheMiddleware',
-        'htmlmin.middleware.HtmlMinifyMiddleware',
         'django.middleware.security.SecurityMiddleware',
         'whitenoise.middleware.WhiteNoiseMiddleware',
         'django.contrib.sessions.middleware.SessionMiddleware',
@@ -69,7 +70,6 @@ class Common(Configuration):
         'django.contrib.messages.middleware.MessageMiddleware',
         'django.middleware.clickjacking.XFrameOptionsMiddleware',
         'django.middleware.cache.FetchFromCacheMiddleware',
-        'htmlmin.middleware.MarkRequestMiddleware',
     ]
 
     ROOT_URLCONF = 'forsa.urls'
@@ -95,7 +95,6 @@ class Common(Configuration):
     WSGI_APPLICATION = 'forsa.wsgi.application'
 
     # Password validation
-    # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
     AUTH_PASSWORD_VALIDATORS = [
         {
             'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
@@ -112,7 +111,6 @@ class Common(Configuration):
     ]
 
     # Internationalization
-    # https://docs.djangoproject.com/en/2.2/topics/i18n/
     LANGUAGE_CODE = 'ar-om'
 
     TIME_ZONE = 'Asia/Muscat'
@@ -123,23 +121,19 @@ class Common(Configuration):
 
     USE_TZ = True
 
+    # Authentication
     AUTH_USER_MODEL = 'users.User'
 
     CRISPY_TEMPLATE_PACK = 'bootstrap4'
-
-    ALLOW_UNICODE_SLUGS = True
 
     DATABASES = values.DatabaseURLValue(environ_name='DATABASE_URL')
 
     SITE_ID = 1
 
-    GOOGLE_ANALYTICS_KEY = ''
-    GTM_KEY = ''
+    GOOGLE_ANALYTICS_KEY = values.Value('')
+    GTM_KEY = values.Value('')
 
-    ADMIN_URL = 'admin/'
-
-    MEDIA_ROOT = BASE_DIR + '/media'
-    MEDIA_URL = 'media/'
+    ADMIN_URL = values.Value('admin/')
 
 
 class Development(Common):
@@ -147,10 +141,10 @@ class Development(Common):
     The in-development settings and the default configuration.
     """
     DEBUG = values.BooleanValue(True)
-    DEBUG_TOOLBAR = values.BackendsValue(True)
+    DEBUG_TOOLBAR = values.BooleanValue(True)
 
     ALLOWED_HOSTS = values.ListValue(
-        ['*.forsa.om', 'forsa-development.herokuapp.com', '127.0.0.1'])
+        ['dev.forsa.om', 'forsa-development.herokuapp.com', '127.0.0.1'])
 
     INTERNAL_IPS = [
         '127.0.0.1'
@@ -164,6 +158,9 @@ class Development(Common):
     STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
     STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
+    MEDIA_ROOT = os.path.join(Common.BASE_DIR, 'media')
+    MEDIA_URL = 'media/'
+
     DEFAULT_FILE_STORAGE = 'django_hashedfilenamestorage.storage.HashedFilenameFileSystemStorage'
 
     CACHES = {
@@ -172,15 +169,13 @@ class Development(Common):
         }
     }
 
-
 class Staging(Common):
     """
     The in-staging settings.
     """
     ALLOWED_HOSTS = ['forsa-staging.herokuapp.com', 'staging.forsa.om']
 
-    DEBUG = values.BooleanValue(False)
-    DEBUG_TOOLBAR = values.BackendsValue(True)
+    DEBUG_TOOLBAR = values.BooleanValue(True)
 
     MIDDLEWARE = Common.MIDDLEWARE + [
         'debug_toolbar.middleware.DebugToolbarMiddleware'
@@ -193,12 +188,10 @@ class Staging(Common):
     X_FRAME_OPTIONS = 'DENY'
 
     # Amazon S3 settings
-    AWS_ACCESS_KEY_ID = values.Value(environ_name='AWS_ACCESS_KEY_ID')
-    AWS_SECRET_ACCESS_KEY = values.Value(environ_name='AWS_SECRET_ACCESS_KEY')
-    AWS_STORAGE_BUCKET_NAME = values.Value(
-        environ_name='AWS_STORAGE_BUCKET_NAME')
-    AWS_S3_CUSTOM_DOMAIN = values.Value(
-        environ_name='AWS_S3_CUSTOM_DOMAIN')
+    AWS_ACCESS_KEY_ID = values.Value()
+    AWS_SECRET_ACCESS_KEY = values.Value()
+    AWS_STORAGE_BUCKET_NAME = values.Value()
+    AWS_S3_CUSTOM_DOMAIN = values.Value()
 
     AWS_S3_OBJECT_PARAMETERS = {
         'CacheControl': 'max-age=86400',
@@ -212,8 +205,6 @@ class Staging(Common):
     # Media assets
     DEFAULT_FILE_STORAGE = 'forsa.storage_backends.S3HashedFilenameStorage'
 
-    HTML_MINIFY = True
-
     CACHES = {
         'default': {
             'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
@@ -223,8 +214,7 @@ class Staging(Common):
 
     THUMBNAIL_FORCE_OVERWRITE = True
 
-    ADMIN_URL = values.Value(
-        environ_name='ADMIN_URL')
+    ADMIN_URL = values.Value()
 
 
 class Production(Staging):
@@ -232,7 +222,9 @@ class Production(Staging):
     The in-production settings.
     """
 
-    DEBUG = values.BooleanValue(False)
+    DEBUG_TOOLBAR = values.BooleanValue(False)
+
+    MIDDLEWARE = Common.MIDDLEWARE
 
     ALLOWED_HOSTS = ['forsa-production.herokuapp.com',
                      'forsa.om', 'www.forsa.om']
