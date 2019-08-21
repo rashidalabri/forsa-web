@@ -228,7 +228,7 @@ class Production(Staging):
     The in-production settings.
     """
 
-    DEBUG = values.BackendsValue(False)
+    DEBUG = values.BooleanValue(False)
 
     ALLOWED_HOSTS = ['forsa-production.herokuapp.com',
                      'forsa.om', 'www.forsa.om']
