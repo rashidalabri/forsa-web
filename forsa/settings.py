@@ -169,6 +169,7 @@ class Development(Common):
         }
     }
 
+
 class Staging(Common):
     """
     The in-staging settings.
@@ -180,6 +181,10 @@ class Staging(Common):
 
     MIDDLEWARE = Common.MIDDLEWARE + [
         'debug_toolbar.middleware.DebugToolbarMiddleware'
+    ]
+
+    INTERNAL_IPS = [
+        '*'
     ]
 
     # Security
