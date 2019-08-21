@@ -138,6 +138,9 @@ class Common(Configuration):
 
     ADMIN_URL = 'admin/'
 
+    MEDIA_ROOT = BASE_DIR + '/media'
+    MEDIA_URL = 'media/'
+
 
 class Development(Common):
     """
@@ -161,9 +164,6 @@ class Development(Common):
     STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
     DEFAULT_FILE_STORAGE = 'django_hashedfilenamestorage.storage.HashedFilenameFileSystemStorage'
-
-    MEDIA_ROOT = BASE_DIR + '/media'
-    MEDIA_URL = 'media/'
 
     CACHES = {
         'default': {
@@ -219,8 +219,6 @@ class Staging(Common):
 
     ADMIN_URL = values.Value(
         environ_name='ADMIN_URL')
-
-    
 
 
 class Production(Staging):
