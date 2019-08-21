@@ -140,7 +140,7 @@ class Development(Common):
     """
     The in-development settings and the default configuration.
     """
-    DEBUG = values.BooleanValue(True)
+    #DEBUG = values.BooleanValue(True)
     DEBUG_TOOLBAR = values.BooleanValue(True)
 
     ALLOWED_HOSTS = values.ListValue(
@@ -175,6 +175,7 @@ class Staging(Common):
     """
     ALLOWED_HOSTS = ['forsa-staging.herokuapp.com', 'staging.forsa.om']
 
+    DEBUG = values.BooleanValue(True)
     DEBUG_TOOLBAR = values.BooleanValue(True)
 
     MIDDLEWARE = Common.MIDDLEWARE + [
