@@ -9,11 +9,10 @@ from django.views.generic.edit import FormView
 from django.views.generic import TemplateView
 
 from django.db.models import Q
+from django.contrib import messages
 
 from wajiha.models import Opportunity
 from wajiha.forms import OpportunityCreationForm
-
-from django.contrib import messages
 
 
 class OpportunityListView(ListView):

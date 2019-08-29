@@ -37,6 +37,8 @@ class Opportunity(models.Model):
 
     hidden = models.BooleanField(default=True)
 
+    source_url = models.URLField(null=True, blank=True)
+
     def get_absolute_url(self):
         return reverse('wajiha:opportunity_detail', args=[self.pk, self.slug])
 

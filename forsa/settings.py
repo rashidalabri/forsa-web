@@ -56,7 +56,10 @@ class Common(Configuration):
 
         'forsa.users',
 
-        'wajiha'
+        'wajiha',
+        'misfa',
+
+        'background_task'
     ]
 
     MIDDLEWARE = [
@@ -139,6 +142,7 @@ class Common(Configuration):
     MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
     MEDIA_URL = 'media/'
 
+    CACHES = values.CacheURLValue()
 
 
 class Development(Common):
@@ -166,8 +170,13 @@ class Development(Common):
     DEFAULT_FILE_STORAGE = 'django_hashedfilenamestorage.storage.HashedFilenameFileSystemStorage'
 
     CACHES = {
-        'default': {
-            'BACKEND': 'django.core.cache.backends.dummy.DummyCache',
+        "default": {
+            "BACKEND": "django_redis.cache.RedisCache",
+            "LOCATION": "redis://127.0.0.1:6379/1",
+            "OPTIONS": {
+                "CLIENT_CLASS": "django_redis.client.DefaultClient"
+            },
+            "KEY_PREFIX": "forsa"
         }
     }
 
@@ -210,13 +219,6 @@ class Staging(Common):
 
     # Media assets
     DEFAULT_FILE_STORAGE = 'forsa.storage_backends.S3HashedFilenameStorage'
-
-    CACHES = {
-        'default': {
-            'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
-            'LOCATION': 'unique-snowflake',
-        }
-    }
 
     THUMBNAIL_FORCE_OVERWRITE = True
 
