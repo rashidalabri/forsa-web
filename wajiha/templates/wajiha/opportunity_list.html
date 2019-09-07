@@ -12,19 +12,24 @@
         <p>منصة فرصة تعتمد على سخاء المستخدمين أمثالك في نشر الفرص وتحقيق مهمتها.</p>
         <a class="btn btn-primary" href="{% url 'wajiha:opportunity_create' %}" role="button"> أُنشر فرصة &raquo;</a>
     </div>
-    <div class="row">
+    <div class="row no-gutters">
         {% for opportunity in object_list %}
-        <div class="col-md-4">
+        <div class="col-sm-12 col-lg-4">
             <div class="card mb-4 shadow-sm">
 
-                <img src="{% thumbnail opportunity.image '512' as im %}{{ im.url }}{% endthumbnail %}" class="bd-placeholder-img card-img-top" width="100%"
-                    height="225" />
+                <div class="card-img-top"
+                    style="background: url('{% thumbnail opportunity.image '512' as im %}{{ im.url }}{% endthumbnail %}') no-repeat; background-size: cover;">
+                </div>
+
 
                 <div class="card-body">
                     <h5 class="card-title">{{ opportunity.title }}</h5>
                     <p class="card-text"><span style="font-weight: 100"
                             class="badge badge-dark">{{ opportunity.category.name }}</span></p>
-                    <p class="card-text">{{ opportunity.description|slice:":100" }}...</p>
+                    <p class="card-text">
+                        <hr width="50%" align="right">
+                    </p>
+                    <p class="card-text">{{ opportunity.description|striptags|slice:":100" }}...</p>
                     <div class="d-flex justify-content-between align-items-center">
                         <a href="{% url 'wajiha:opportunity_detail' pk=opportunity.pk slug=opportunity.slug %}"><button
                                 type="button" class="btn btn-primary">المزيد</button></a>

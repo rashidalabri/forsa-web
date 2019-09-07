@@ -6,7 +6,8 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path(settings.ADMIN_URL, admin.site.urls),
-    path('', include('wajiha.urls')),
+    path('', include('wajiha.urls', namespace='wajiha')),
+    path('tinymce/', include('tinymce.urls')),
 ]
 
 if settings.DEBUG:

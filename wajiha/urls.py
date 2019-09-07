@@ -1,10 +1,10 @@
-from django.urls import path
+from django.urls import path, include
 from wajiha import views
 from django.contrib.sitemaps.views import sitemap
 from wajiha import sitemaps
 from django.views.generic import TemplateView
 from django.views.decorators.cache import cache_page
-
+from rest_framework import routers
 
 sitemaps = {
     'opportunity': sitemaps.OpportunitySitemap,
@@ -19,7 +19,12 @@ CACHE_DAY = 86400
 
 urlpatterns = [
     path('', cache_page(CACHE_HOUR)(
-        views.OpportunityListView.as_view()), name='index'),
+        views.CategoryListView.as_view()), name='index'),
+
+    path('p/', cache_page(CACHE_HOUR)(
+        views.OpportunityListView.as_view()), name='opportunity_list'),
+
+    path('c/<int:pk>', cache_page(CACHE_HOUR)(views.CategoryDetailView.as_view()), name='category_detail'),
 
     path('p/<int:pk>/<slug:slug>', cache_page(CACHE_DAY)(views.OpportunityDetailView.as_view()),
          name='opportunity_detail'),

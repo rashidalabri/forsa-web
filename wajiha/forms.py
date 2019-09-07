@@ -1,6 +1,14 @@
 from django import forms
 
-from wajiha.models import Opportunity
+from wajiha.models import Opportunity, OpportunityCategory
+
+class SearchForm(forms.Form):
+    text = forms.CharField(required=False, max_length=100)
+    category = forms.ModelChoiceField(queryset=OpportunityCategory.objects.all(), required=False)
+    start_at = forms.DateField(required=False, input_formats=['%d/%m/%Y'])
+    end_at = forms.DateField(required=False, input_formats=['%d/%m/%Y'])
+    min_age = forms.DateField(required=False)
+    max_age = forms.DateField(required=False)
 
 class OpportunityCreationForm(forms.ModelForm):
 

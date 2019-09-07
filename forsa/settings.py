@@ -59,7 +59,9 @@ class Common(Configuration):
         'wajiha',
         'misfa',
 
-        'background_task'
+        'background_task',
+
+        'tinymce',
     ]
 
     MIDDLEWARE = [
@@ -90,6 +92,7 @@ class Common(Configuration):
                     'django.contrib.messages.context_processors.messages',
                     'django.template.context_processors.request',
                     'wajiha.context_processors.google_keys',
+                    'wajiha.context_processors.category_list'
                 ],
             },
         },
@@ -140,9 +143,12 @@ class Common(Configuration):
 
     # Hacky solution to a problem
     MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-    MEDIA_URL = 'media/'
+    MEDIA_URL = '/media/'
 
-    CACHES = values.CacheURLValue()
+    REST_FRAMEWORK = {
+        'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+        'PAGE_SIZE': 50
+    }
 
 
 class Development(Common):
@@ -170,13 +176,8 @@ class Development(Common):
     DEFAULT_FILE_STORAGE = 'django_hashedfilenamestorage.storage.HashedFilenameFileSystemStorage'
 
     CACHES = {
-        "default": {
-            "BACKEND": "django_redis.cache.RedisCache",
-            "LOCATION": "redis://127.0.0.1:6379/1",
-            "OPTIONS": {
-                "CLIENT_CLASS": "django_redis.client.DefaultClient"
-            },
-            "KEY_PREFIX": "forsa"
+        'default': {
+            'BACKEND': 'django.core.cache.backends.dummy.DummyCache',
         }
     }
 
@@ -223,6 +224,8 @@ class Staging(Common):
     THUMBNAIL_FORCE_OVERWRITE = True
 
     ADMIN_URL = values.Value()
+
+    CACHES = values.CacheURLValue()
 
 
 class Production(Staging):

@@ -1,0 +1,69 @@
+{% extends "wajiha/base.html" %}
+{% load humanize %}
+{% load static %}
+{% load thumbnail %}
+{% load bootstrap_pagination %}
+
+{% block meta %}
+<meta property="og:site_name" content="فرصة" />
+<meta property="og:title" content="{{ category.name }}" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://forsa.om{% url 'wajiha:category_detail' pk=category.pk %}" />
+<meta property="og:image" itemprop="image"
+    content="{% thumbnail category.image '256' as im %}{{ im.url }}{% endthumbnail %}" />
+{% endblock %}
+
+{% block title %}اكتشف فرصاً جديدة في سلطنة عمان{% endblock title %}
+
+{% block header_image_url %}{% thumbnail category.image '1024' as im %}{{ im.url }}{% endthumbnail %}{% endblock %}
+
+{% block header_content %}
+<h4><span class="fa fa-{{ category.fontawesome_icon }}" aria-hidden="true"></span></h4>
+<h4>#{{ category.name.split|join:'_' }}</h4>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        {% for opportunity in opportunity_list %}
+        <div class="col-sm-12 col-lg-4">
+            <div class="card mb-4 shadow-sm">
+
+                <div class="card-img-top"
+                    style="background: url('{% thumbnail opportunity.image '512' as im %}{{ im.url }}{% endthumbnail %}') no-repeat; background-size: cover;">
+                </div>
+
+
+                <div class="card-body">
+                    <h5 class="card-title">{{ opportunity.title }}</h5>
+                    <p class="card-text">
+                        <hr width="50%" align="right">
+                    </p>
+                    <p class="card-text">{{ opportunity.description|striptags|slice:":100" }}...</p>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <a href="{% url 'wajiha:opportunity_detail' pk=opportunity.pk slug=opportunity.slug %}"><button
+                                type="button" class="btn btn-primary">المزيد</button></a>
+                        <small class="text-muted">منذ {{ opportunity.created_at|timesince }}</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    <hr>
+<br>
+    <div class="row">
+        <div class="col">
+            <span class="float-left">
+                <div class="row no-gutters">
+                    <button class="btn btn-primary" onclick="window.history.back();"><span class="fa fa-chevron-right"
+                            aria-hidden="true"></span> الرجوع</button>
+                </div>
+            </span>
+            <span class="float-right">
+                {% bootstrap_paginate opportunity_list range=10 centered="true" previous_label="→" next_label="←" %}
+            </span>
+        </div>
+    </div>
+</div>
+{% endblock %}

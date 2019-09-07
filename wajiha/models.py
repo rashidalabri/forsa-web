@@ -3,10 +3,17 @@ from django.utils import timezone
 from django.utils.text import slugify
 from django.urls import reverse
 from sorl import thumbnail
-
+from tinymce import models as tinymce_models
 
 class OpportunityCategory(models.Model):
     name = models.CharField(max_length=250)
+    fontawesome_icon = models.CharField(max_length=250, default='')
+    is_featured = models.BooleanField(default=False)
+    image = thumbnail.ImageField(default='default.jpg')
+    display_order = models.IntegerField()
+
+    def opportunities(self):
+        return Opportunity.objects.filter(category=self)
 
     def __str__(self):
         return self.name
@@ -16,7 +23,7 @@ class Opportunity(models.Model):
     slug = models.SlugField(allow_unicode=True)
 
     title = models.CharField(max_length=250)
-    description = models.TextField()
+    description = tinymce_models.HTMLField()
 
     category = models.ForeignKey(
         OpportunityCategory, models.SET_DEFAULT, default=1)

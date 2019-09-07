@@ -1,0 +1,26 @@
+{% extends "wajiha/base.html" %}
+{% load humanize %}
+{% load static %}
+{% load thumbnail %}
+
+{% block title %}اكتشف فرصاً جديدة في سلطنة عمان{% endblock title %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        {% for category in object_list %}
+        <div class="col-6 category-item">
+            <a href="{% url 'wajiha:category_detail' pk=category.pk %}">
+                <div style="background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(0, 0, 0, 1)), url({% thumbnail category.image '512' as im %}{{ im.url }}{% endthumbnail %})"
+                    class="category-item-cover row justify-content-center align-items-center">
+                    <div class="col">
+                        <h4><span class="fa fa-{{ category.fontawesome_icon }}" aria-hidden="true"></span></h4>
+                        <h4>#{{ category.name.split|join:'_' }}</h4>
+                    </div>
+                </div>
+            </a>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
