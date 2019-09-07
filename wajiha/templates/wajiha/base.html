@@ -70,8 +70,15 @@
         <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
             <div class="container">
                 <a class="navbar-brand" href="{% url 'wajiha:index' %}">فُرصة</a>
-                w
-
+                <a href="{% url 'wajiha:index' %}">
+                    <button class="navbar-toggler" type="button">
+                        <span class="fa fa-home"></span>
+                    </button>
+                </a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01"
+                    aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="fa fa-bars"></span>
+                </button>
                 <div class="collapse navbar-collapse" id="navbarColor01">
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item">
@@ -145,8 +152,8 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="advancedSearchStartDate">تاريخ الإبتداء</label>
-                                    <input name="start_at" type="text" class="form-control"
-                                        id="advancedSearchStartDate" lang="ar">
+                                    <input name="start_at" type="text" class="form-control" id="advancedSearchStartDate"
+                                        lang="ar">
                                 </div>
                                 <div class="form-group">
                                     <label for="advancedSearchEndDate">تاريخ الإنتهاء</label>

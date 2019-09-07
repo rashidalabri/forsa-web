@@ -57,8 +57,7 @@ class OpportunityListView(ListView):
         form = SearchForm(self.request.GET)
         if form.is_valid():
             params = form.cleaned_data
-            objects = self.model.objects.filter(hidden=False)
-
+            
             if params['text']:
                 objects = objects.filter(Q(description__icontains=params['text']) | Q(
                     title__icontains=params['text']))

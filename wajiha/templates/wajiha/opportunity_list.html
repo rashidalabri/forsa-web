@@ -40,6 +40,18 @@
         </div>
         {% endfor %}
     </div>
-    {% bootstrap_paginate page_obj range=10 centered="true" previous_label="→" next_label="←" %}
+    <div class="row">
+        <div class="col">
+            <span class="float-left">
+                <div class="row no-gutters">
+                    <button class="btn btn-primary" onclick="window.history.back();"><span class="fa fa-chevron-right"
+                            aria-hidden="true"></span> الرجوع</button>
+                </div>
+            </span>
+            <span class="float-right">
+                {% bootstrap_paginate page_obj range=10 centered="true" previous_label="→" next_label="←" %}
+            </span>
+        </div>
+    </div>
 </div>
 {% endblock %}
